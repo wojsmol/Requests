@@ -461,7 +461,7 @@ final class Fsockopen implements Transport {
 		}
 
 		// If needed, check that streams support SSL
-		if (isset($capabilities['ssl']) && $capabilities['ssl']) {
+		if (isset($capabilities[Requests_Capability::SSL]) && $capabilities[Requests_Capability::SSL]) {
 			if (!extension_loaded('openssl') || !function_exists('openssl_x509_parse')) {
 				return false;
 			}

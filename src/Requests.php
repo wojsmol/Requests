@@ -205,12 +205,12 @@ class Requests {
 	}
 
 	/**
-	 * Get a working transport
+	 * Get the FQCN for a working transport
 	 *
-	 * @throws \WpOrg\Requests\Exception If no valid transport is found (`notransport`)
-	 * @return \WpOrg\Requests\Transport
+	 * @return string FQCN of the transport to use, or an empty string if none
+	 *                provided the requested capabilities.
 	 */
-	protected static function get_transport($capabilities = array()) {
+	protected static function get_transport_class($capabilities = array()) {
 		// Caching code, don't bother testing coverage
 		// @codeCoverageIgnoreStart
 		// array of capabilities as a string to be used as an array key
@@ -219,8 +219,7 @@ class Requests {
 
 		// Don't search for a transport if it's already been done for these $capabilities
 		if (isset(self::$transport[$cap_string]) && self::$transport[$cap_string] !== null) {
-			$class = self::$transport[$cap_string];
-			return new $class();
+			return self::$transport[$cap_string];
 		}
 		// @codeCoverageIgnoreEnd
 
@@ -234,33 +233,45 @@ class Requests {
 				continue;
 			}
 
-			$result = call_user_func(array($class, 'test'), $capabilities);
+			$result = $class::test($capabilities);
 			if ($result) {
 				self::$transport[$cap_string] = $class;
-				break;
+				return $class;
 			}
 		}
-		if (self::$transport[$cap_string] === null) {
+
+		return '';
+	}
+
+	/**
+	 * Get a working transport
+	 *
+	 * @throws \WpOrg\Requests\Exception If no valid transport is found (`notransport`)
+	 * @return \WpOrg\Requests\Transport
+	 */
+	protected static function get_transport($capabilities = array()) {
+		$class = self::get_transport_class($capabilities);
+
+		if ($class === '') {
 			throw new Exception('No working transports found', 'notransport', self::$transports);
 		}
 
-		$class = self::$transport[$cap_string];
 		return new $class();
 	}
 
 	/**
-	 * Checks to see if we have a transport for the capabilities requested.
+	 * Checks to see if we have a transport for the capabilities requested
+	 *
+	 * Supported capabilities can be found in the {@see \WpOrg\Requests\Capability}
+	 * interface as constants.
+	 *
+	 * Example usage:
+	 * `Requests::has_capabilities([Capability::SSL => true])`.
 	 *
 	 * @return bool
 	 */
-	public static function has_capability($capabilities = array()) {
-		try {
-			$transport = self::get_transport($capabilities);
-		} catch (Exception $e) {
-			return false;
-		}
-
-		return true;
+	public static function has_capabilities($capabilities = array()) {
+		return self::get_transport_class($capabilities) !== '';
 	}
 
 	/**#@+

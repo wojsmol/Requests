@@ -3,6 +3,7 @@
 namespace WpOrg\Requests\Tests\Transport;
 
 use stdClass;
+use WpOrg\Requests\Capability;
 use WpOrg\Requests\Exception;
 use WpOrg\Requests\Exception\Http\StatusUnknown;
 use WpOrg\Requests\Exception\InvalidArgument;
@@ -25,7 +26,7 @@ abstract class BaseTestCase extends TestCase {
 			return;
 		}
 
-		$ssl_supported = call_user_func($callback, array('ssl' => true));
+		$ssl_supported = call_user_func($callback, array(Requests_Capability::SSL => true));
 		if (!$ssl_supported) {
 			$this->skip_https = true;
 		}
