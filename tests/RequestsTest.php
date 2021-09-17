@@ -173,10 +173,19 @@ final class RequestsTest extends TestCase {
 		Requests::get(httpbin('/delay/3'), array(), $options);
 	}
 
+	/**
+	 * @covers \Requests::has_capabilities
+	 */
 	public function testHasCapabilitiesSucceedsForDetectingSsl() {
+		if (!extension_loaded('curl') && !extension_loaded('openssl')) {
+			$this->markTestSkipped('Testing for SSL requires either the curl or the openssl extension');
+		}
 		$this->assertTrue(Requests::has_capabilities(array(Requests_Capability::SSL => true)));
 	}
 
+	/**
+	 * @covers \Requests::has_capabilities
+	 */
 	public function testHasCapabilitiesFailsForUnsupportedCapabilities() {
 		$transports = new ReflectionProperty(Requests::class, 'transports');
 		$transports->setAccessible(true);
