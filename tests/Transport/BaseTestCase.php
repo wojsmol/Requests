@@ -18,15 +18,14 @@ abstract class BaseTestCase extends TestCase {
 	protected $skip_https = false;
 
 	public function set_up() {
-		$callback  = array($this->transport, 'test');
-		$supported = call_user_func($callback);
+		$supported = $this->transport->test();
 
 		if (!$supported) {
 			$this->markTestSkipped($this->transport . ' is not available');
 			return;
 		}
 
-		$ssl_supported = call_user_func($callback, array(Requests_Capability::SSL => true));
+		$ssl_supported = $this->transport->test(array(Requests_Capability::SSL => true));
 		if (!$ssl_supported) {
 			$this->skip_https = true;
 		}
