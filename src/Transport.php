@@ -38,7 +38,7 @@ interface Transport {
 	/**
 	 * Self-test whether the transport can be used
 	 *
-	 * The available capabilities to test for can be found in {@see Requests_Capability}
+	 * The available capabilities to test for can be found in {@see \WpOrg\Requests\Capability}
 	 *
 	 * @param array<bool> $capabilities Associative array of capabilities to test against, i.e. `['<capability>' => true]`
 	 * @return bool Whether the transport can be used

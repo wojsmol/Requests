@@ -8,6 +8,7 @@
 
 namespace WpOrg\Requests\Transport;
 
+use WpOrg\Requests\Capability;
 use WpOrg\Requests\Exception;
 use WpOrg\Requests\Exception\InvalidArgument;
 use WpOrg\Requests\Port;
@@ -452,7 +453,7 @@ final class Fsockopen implements Transport {
 	/**
 	 * Self-test whether the transport can be used
 	 *
-	 * The available capabilities to test for can be found in {@see Requests_Capability}
+	 * The available capabilities to test for can be found in {@see \WpOrg\Requests\Capability}
 	 *
 	 * @codeCoverageIgnore
 	 * @param array<bool> $capabilities Associative array of capabilities to test against, i.e. `['<capability>' => true]`
@@ -464,7 +465,7 @@ final class Fsockopen implements Transport {
 		}
 
 		// If needed, check that streams support SSL
-		if (isset($capabilities[Requests_Capability::SSL]) && $capabilities[Requests_Capability::SSL]) {
+		if (isset($capabilities[Capability::SSL]) && $capabilities[Capability::SSL]) {
 			if (!extension_loaded('openssl') || !function_exists('openssl_x509_parse')) {
 				return false;
 			}

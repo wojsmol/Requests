@@ -10,6 +10,7 @@ namespace WpOrg\Requests\Transport;
 
 use RecursiveArrayIterator;
 use RecursiveIteratorIterator;
+use WpOrg\Requests\Capability;
 use WpOrg\Requests\Exception;
 use WpOrg\Requests\Exception\InvalidArgument;
 use WpOrg\Requests\Exception\Transport\Curl as CurlException;
@@ -567,7 +568,7 @@ final class Curl implements Transport {
 	/**
 	 * Self-test whether the transport can be used
 	 *
-	 * The available capabilities to test for can be found in {@see Requests_Capability}
+	 * The available capabilities to test for can be found in {@see \WpOrg\Requests\Capability}
 	 *
 	 * @codeCoverageIgnore
 	 * @param array<bool> $capabilities Associative array of capabilities to test against, i.e. `['<capability>' => true]`
@@ -579,7 +580,7 @@ final class Curl implements Transport {
 		}
 
 		// If needed, check that our installed curl version supports SSL
-		if (isset($capabilities[Requests_Capability::SSL]) && $capabilities[Requests_Capability::SSL]) {
+		if (isset($capabilities[Capability::SSL]) && $capabilities[Capability::SSL]) {
 			$curl_version = curl_version();
 			if (!(CURL_VERSION_SSL & $curl_version['features'])) {
 				return false;
