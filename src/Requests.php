@@ -235,8 +235,7 @@ class Requests {
 
 			$result = $class::test($capabilities);
 			if ($result) {
-				self::$transport[$cap_string] = $class;
-				return $class;
+				return self::$transport[$cap_string] = $class;
 			}
 		}
 
