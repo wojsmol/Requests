@@ -24,7 +24,9 @@ interface Requests_Capability {
 	const SSL = 'ssl';
 
 	/**
-	 * Collection of all known capabilities.
+	 * Collection of all capabilities supported in Requests.
+	 *
+	 * Note: this does not automatically mean that the capability will be supported for your chosen transport!
 	 *
 	 * @var array<string>
 	 */
