@@ -19,7 +19,7 @@ abstract class BaseTestCase extends TestCase {
 
 	public function set_up() {
 		// Intermediary variable $test_method can be skipped with PHP 7+.
-		$test_method = "{$this->transport}::test";
+		$test_method = "\\{$this->transport}::test";
 
 		$supported = $test_method();
 
