@@ -14,7 +14,7 @@
  * @package Requests
  * @subpackage Capability
  */
-class Requests_Capability {
+interface Requests_Capability {
 
 	/**
 	 * Support for SSL.
