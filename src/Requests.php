@@ -207,8 +207,8 @@ class Requests {
 	/**
 	 * Get the FQCN for a working transport
 	 *
-	 * @return string FQCN of the transport to use, or an empty string if none
-	 *                provided the requested capabilities.
+	 * @return string FQCN of the transport to use, or an empty string if no transport was
+	 *                found which provided the requested capabilities.
 	 */
 	protected static function get_transport_class($capabilities = array()) {
 		// Caching code, don't bother testing coverage
