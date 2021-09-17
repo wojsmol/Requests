@@ -1,10 +1,10 @@
 <?php
 
-namespace Requests\Tests\Mock;
+namespace WpOrg\Requests\Tests\Mock;
 
-use Requests_Transport;
+use WpOrg\Requests\Transport;
 
-class TestTransportMock implements Requests_Transport {
+final class TestTransportMock implements Transport {
 	public function request($url, $headers = array(), $data = array(), $options = array()) {
 		return '';
 	}

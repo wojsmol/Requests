@@ -18,14 +18,17 @@ abstract class BaseTestCase extends TestCase {
 	protected $skip_https = false;
 
 	public function set_up() {
-		$supported = $this->transport->test();
+		// Intermediary variable $test_method can be skipped with PHP 7+.
+		$test_method = "{$this->transport}::test";
+
+		$supported = $test_method();
 
 		if (!$supported) {
 			$this->markTestSkipped($this->transport . ' is not available');
 			return;
 		}
 
-		$ssl_supported = $this->transport->test(array(Requests_Capability::SSL => true));
+		$ssl_supported = $test_method(array(Capability::SSL => true));
 		if (!$ssl_supported) {
 			$this->skip_https = true;
 		}
