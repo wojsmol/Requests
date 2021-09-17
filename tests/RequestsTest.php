@@ -182,9 +182,11 @@ final class RequestsTest extends TestCase {
 		$transports->setAccessible(true);
 		$transports->setValue(array(TestTransportMock::class));
 
-		$this->assertFalse(Requests::has_capabilities(array('time-travel' => true)));
+		$result = Requests::has_capabilities(array('time-travel' => true));
 
 		$transports->setValue(null);
 		$transports->setAccessible(false);
+
+		$this->assertFalse($result);
 	}
 }
