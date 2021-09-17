@@ -37,7 +37,11 @@ interface Transport {
 
 	/**
 	 * Self-test whether the transport can be used
-	 * @return bool
+	 *
+	 * The available capabilities to test for can be found in {@see Requests_Capability}
+	 *
+	 * @param array<bool> $capabilities Associative array of capabilities to test against, i.e. `['<capability>' => true]`
+	 * @return bool Whether the transport can be used
 	 */
-	public static function test();
+	public static function test($capabilities = array());
 }
