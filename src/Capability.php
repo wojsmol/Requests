@@ -6,6 +6,8 @@
  * @subpackage Capability
  */
 
+namespace WpOrg\Requests;
+
 /**
  * Capability interface declaring the known capabilities
  *
@@ -14,7 +16,7 @@
  * @package Requests
  * @subpackage Capability
  */
-interface Requests_Capability {
+interface Capability {
 
 	/**
 	 * Support for SSL.
